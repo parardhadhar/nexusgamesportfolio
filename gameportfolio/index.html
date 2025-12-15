@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexus Games India - Game Development Portfolio. Unreal Engine, C++, and Cinematics experts building the future of interactive entertainment.">
+    <title>Nexus Games India | Game Development Team</title>
+    
+    <!-- Tailwind CSS for rapid, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Orbitron (Headers) & Rajdhani (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GAMIFIED PROFESSIONAL THEME --- */
+        :root {
+            --neon-red: #ff4655;      /* Primary: Aggressive Esports Red */
+            --neon-purple: #bc13fe;   /* Secondary: Deep Cyber Purple */
+            --neon-yellow: #f0e600;   /* Tertiary: Cyberpunk Yellow */
+            --neon-green: #00ff41;    /* Quaternary: Matrix/Terminal Green */
+            --bg-dark: #050505;
+            --bg-panel: #0b0c12;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            /* Subtle Tech Grid */
+            background-image: 
+                linear-gradient(rgba(255, 70, 85, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 70, 85, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        h1, h2, h3, .heading-font {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        /* Utilities */
+        .text-red { color: var(--neon-red); }
+        .text-purple { color: var(--neon-purple); }
+        .text-yellow { color: var(--neon-yellow); }
+        .text-green { color: var(--neon-green); }
+        
+        /* Glow Effects */
+        .glow-text { text-shadow: 0 0 10px rgba(255, 70, 85, 0.6); }
+        
+        .hover-text-red:hover { color: var(--neon-red); transition: color 0.3s; }
+
+        /* --- BUTTONS --- */
+        .btn-primary {
+            position: relative;
+            background: var(--neon-red);
+            color: #fff;
+            border: 2px solid var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+            z-index: 10;
+        }
+        .btn-primary:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(255, 70, 85, 0.8);
+            transform: translateY(-2px) skewX(-5deg);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .btn-secondary:hover {
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
+            transform: translateY(-2px) skewX(-5deg);
+            background: rgba(188, 19, 254, 0.1);
+        }
+
+        /* Hero Overlay */
+        .hero-overlay {
+            background: radial-gradient(circle at center, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.95) 90%);
+        }
+
+        /* Glitch Effect */
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #050505;
+            clip: rect(0, 0, 0, 0); 
+        }
+        .glitch:hover::before {
+            left: 2px; text-shadow: -1px 0 var(--neon-purple);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            clip: rect(24px, 550px, 90px, 0);
+        }
+        .glitch:hover::after {
+            left: -2px; text-shadow: -1px 0 var(--neon-red);
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+            clip: rect(85px, 550px, 140px, 0);
+        }
+        @keyframes glitch-anim-1 { 0% { clip: rect(20px, 9999px, 15px, 0); } 100% { clip: rect(50px, 9999px, 20px, 0); } }
+        @keyframes glitch-anim-2 { 0% { clip: rect(10px, 9999px, 80px, 0); } 100% { clip: rect(30px, 9999px, 60px, 0); } }
+
+        /* Professional Cards */
+        .tech-card {
+            background-color: var(--bg-panel);
+            border: 1px solid #1f2937;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .tech-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0; width: 20px; height: 20px;
+            background: linear-gradient(135deg, transparent 50%, #333 50%);
+            transition: all 0.3s;
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-red);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+        }
+        .tech-card:hover::after { background: linear-gradient(135deg, transparent 50%, var(--neon-red) 50%); }
+
+        /* Scanline Animation */
+        .scan-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 70, 85, 0.1), transparent);
+            transform: translateY(-100%);
+            animation: scan 3s infinite linear;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .group:hover .scan-overlay { opacity: 1; }
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Pulse Animation */
+        .avatar-pulse { animation: pulse-ring 3s infinite; }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(255, 70, 85, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 70, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 70, 85, 0); }
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+
+        /* Role Badge */
+        .role-badge {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+        .badge-red { background: rgba(255, 70, 85, 0.1); color: var(--neon-red); border: 1px solid rgba(255, 70, 85, 0.3); }
+        .badge-purple { background: rgba(188, 19, 254, 0.1); color: var(--neon-purple); border: 1px solid rgba(188, 19, 254, 0.3); }
+        .badge-yellow { background: rgba(240, 230, 0, 0.1); color: var(--neon-yellow); border: 1px solid rgba(240, 230, 0, 0.3); }
+        .badge-green { background: rgba(0, 255, 65, 0.1); color: var(--neon-green); border: 1px solid rgba(0, 255, 65, 0.3); }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-bottom: 1px solid #1f2937;
+        }
+        .video-container video, .video-container img, .video-container iframe, .video-container div {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
+    </style>
+</head>
+<body class="antialiased text-gray-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#050505]/95 backdrop-blur-sm border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <!-- Simple Logo Icon -->
+                    <div class="w-2 h-8 bg-red-500 transform skew-x-12"></div>
+                    <span class="heading-font text-xl font-bold tracking-widest text-white">
+                        NGI
+                    </span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Home</a>
+                        <a href="#collaborative" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Our Work</a>
+                        <a href="#roster" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Team Roster</a>
+                        <a href="#contact" class="text-red block px-3 py-2 text-sm font-medium font-bold">Contact</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-gray-900 border-b border-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:text-white block px-3 py-2 text-sm font-medium">Home</a>
+                <a href="#collaborative" class="text-gray-300 hover:text-white block px-3 py-2 text-sm font-medium">Our Work</a>
+                <a href="#roster" class="text-gray-300 hover:text-white block px-3 py-2 text-sm font-medium">Team Roster</a>
+                <a href="#contact" class="text-red block px-3 py-2 text-sm font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden border-b border-gray-800">
+        <!-- Background Videos (Slideshow) -->
+        <div class="absolute inset-0 z-0">
+            <!-- Video 1 -->
+            <video id="hero-video-1" autoplay loop muted playsinline preload="auto" poster="images/vehiclerig ss.png" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-1000 ease-in-out">
+                <source src="images/car rigging.mp4" type="video/mp4">
+            </video>
+            <!-- Video 2 -->
+            <iframe id="hero-video-2" src="https://player.vimeo.com/video/1059977879?h=1c506cc49d&background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1" 
+                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out pointer-events-none" 
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen>
+            </iframe>
+            <!-- Video 3 -->
+            <iframe id="hero-video-3" src="https://player.vimeo.com/video/1146502711?badge=0&background=1&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&dnt=1" 
+                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out pointer-events-none" 
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen>
+            </iframe>
+        </div>
+        
+        <!-- Tech Overlay -->
+        <div class="absolute inset-0 hero-overlay z-10"></div>
+        <div class="absolute inset-0 z-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay"></div>
+
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto" data-aos="fade-up">
+            <h2 class="text-red font-bold tracking-[0.2em] uppercase mb-4 text-xs md:text-sm glow-text">
+                Unreal Engine • Blueprints • Cinematics & VFX
+            </h2>
+            <h1 class="glitch text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 uppercase leading-tight" data-text="NEXUS GAMES INDIA">
+                NEXUS GAMES <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9933] via-[#FFFFFF] to-[#138808]">INDIA</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+                A specialized team of developers and artists from <strong class="text-white">VIT Bhopal</strong>. <br>
+                Building immersive experiences for <strong class="text-white">Global Hackathons</strong> and beyond.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#collaborative" class="px-8 py-3 btn-primary text-sm text-white">
+                    View Our Work
+                </a>
+                <a href="#contact" class="px-8 py-3 btn-secondary text-sm">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborative Projects Section -->
+    <section id="collaborative" class="py-24 bg-[#050505] relative border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-3xl md:text-4xl font-bold text-white mb-3 uppercase tracking-wider">
+                    <span class="text-green">///</span> Full Collaborative Projects
+                </h2>
+                <p class="text-gray-400 text-sm max-w-2xl mx-auto">Joint operations and full-scale game releases representing our teamwork.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+                <!-- Project 1: Medieval Escape -->
+                <article class="tech-card group">
+                    <div class="scan-overlay"></div>
+                    <!-- Direct Iframe Embed -->
+                    <div style="padding:47.54% 0 0 0;position:relative;" class="bg-black border-b border-gray-800">
+                        <iframe src="https://player.vimeo.com/video/1059977879?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1" 
+                            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            title="Medieval-escape small video only" class="pointer-events-none">
+                        </iframe>
+                        <!-- Overlay Link -->
+                        <a href="https://nexus-games-india.itch.io/medieval-escape" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-green-500/50 z-10">
+                            <span class="text-green font-bold font-mono uppercase tracking-wider text-lg">
+                                <i class="fab fa-itch-io mr-2"></i> PLAY ON ITCH.IO
+                            </span>
+                        </a>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="heading-font text-2xl font-bold text-white mb-2 group-hover:text-green transition-colors">Medieval Escape</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            A classic escape adventure designed in Unreal Engine. Players must navigate through intricate medieval environments, solving puzzles and avoiding traps to secure their freedom.
+                        </p>
+                        <div class="flex gap-2 text-[10px] font-mono text-green/70 uppercase">
+                            <span>#ADVENTURE</span> <span>#PUZZLE</span> <span>#UNREAL_ENGINE</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Fractured Hours -->
+                <article class="tech-card group">
+                    <div class="scan-overlay"></div>
+                    <!-- Direct Iframe Embed -->
+                    <div class="video-container bg-black border-b border-gray-800">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/XH_U06el-PQ?si=vJ9kjElIRdxDGpRe&autoplay=1&mute=1&loop=1&playlist=XH_U06el-PQ&controls=0" 
+                            title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="pointer-events-none">
+                        </iframe>
+                        <!-- Overlay Link -->
+                        <a href="https://store.steampowered.com/publisher/nexusgamesindia" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-purple-500/50 z-10">
+                            <span class="text-purple font-bold font-mono uppercase tracking-wider text-lg">
+                                <i class="fab fa-steam mr-2"></i> VIEW ON STEAM
+                            </span>
+                        </a>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="heading-font text-2xl font-bold text-white group-hover:text-purple transition-colors">Fractured Hours : Fracturing Hours</h3>
+                            <span class="text-[10px] font-bold bg-purple-900/50 text-purple border border-purple-500/30 px-2 py-1 rounded">COMING 2026</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            A time-bending narrative experience where every second counts. Manipulate time to solve environmental puzzles and uncover the mystery behind the fractured timeline. 
+                            <span class="text-purple-400 block mt-2 font-bold">Upcoming game on Steam in 2026.</span>
+                        </p>
+                        <div class="flex gap-2 text-[10px] font-mono text-purple/70 uppercase">
+                            <span>#HORROR</span> <span>#TIME_MECHANICS</span> <span>#NARRATIVE</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Combined Roster & Projects Section -->
+    <section id="roster" class="py-20 bg-[#050505] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="heading-font text-3xl md:text-4xl font-bold text-white mb-3 uppercase tracking-wider">
+                    <span class="text-red">///</span> Squad Capabilities
+                </h2>
+                <p class="text-gray-400 text-sm max-w-2xl mx-auto">Elite developers and their specialized deployments.</p>
+            </div>
+
+            <!-- ================= MEMBER 1: PARARDHA DHAR ================= -->
+            <div class="flex flex-col items-center mb-32 relative">
+                <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-red-500/50 to-transparent"></div>
+                
+                <!-- Profile -->
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-red-500/50 float-anim max-w-2xl z-10" style="animation-delay: 0s;">
+                    <div class="w-32 h-32 flex-shrink-0 relative">
+                        <img src="images/pdimage.jpg" alt="Parardha Dhar" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-red-400 transition-colors avatar-pulse shadow-lg shadow-red-500/20" loading="lazy">
+                    </div>
+                    <div>
+                        <h3 class="heading-font text-2xl font-bold text-white mb-2">Parardha Dhar</h3>
+                        <span class="role-badge badge-red mb-4">Lead Designer & Tech Artist</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            With <strong>6+ years</strong> in Unreal Engine 5, Parardha bridges the gap between art and code. Specializes in Lumen/Nanite environments.
+                        </p>
+                        <div class="flex justify-center gap-2 text-[10px] font-mono text-gray-500 flex-wrap">
+                            <span>LEVEL_DESIGN</span> • <span>CINEMATICS</span> • <span>BLUEPRINTS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="w-full mt-12 z-10">
+                    <div class="text-center mb-8"><span class="text-red font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-red-900 rounded-full">Deployments</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center max-w-6xl mx-auto">
+                        <!-- Vehicle Rigging (MP4) -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <div class="video-container bg-black">
+                                <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80" poster="images/vehiclerig ss.png">
+                                    <source src="images/car rigging.mp4" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-red-500/50 z-20 pointer-events-none">
+                                    <span class="text-red font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </div>
+                            </div>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-red transition-colors">Vehicle Rigging</h3>
+                                <p class="text-gray-400 text-xs mb-3">Chaos Physics setup, suspension, and wheel friction.</p>
+                            </div>
+                        </article>
+
+                        <!-- Environment Art (Vimeo) -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <div class="video-container bg-black">
+                                <iframe src="https://player.vimeo.com/video/1146543594?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1&dnt=1" 
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" 
+                                    title="1209">
+                                </iframe>
+                                <a href="https://drive.google.com/drive/folders/19bXIJdULnVpEYApYj6UlNbheyQjZVgCH?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-cyan-500/50 z-20">
+                                    <span class="text-cyan font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </a>
+                            </div>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-red transition-colors">Environment Art</h3>
+                                <p class="text-gray-400 text-xs mb-3">High-fidelity forest scene utilizing Lumen.</p>
+                            </div>
+                        </article>
+
+                        <!-- Mocap & Cloth (Vimeo) -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <div class="video-container bg-black">
+                                <iframe src="https://player.vimeo.com/video/1146542322?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1#t=4s" 
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" 
+                                    title="motion rigging final">
+                                </iframe>
+                                <a href="https://drive.google.com/file/d/1RcwKGqmqOQocNhlg1gccGksR3djSLTpH/view?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-red-500/50 z-20">
+                                    <span class="text-red font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </a>
+                            </div>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-red transition-colors">Mocap & Cloth</h3>
+                                <p class="text-gray-400 text-xs mb-3">Animation retargeting and real-time cloth physics.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MEMBER 2: HAARDIK PAHLAJANI ================= -->
+            <div class="flex flex-col items-center mb-32 relative">
+                <!-- Visual Connection Line -->
+                <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-purple-500/50 to-transparent"></div>
+
+                <!-- Profile Card -->
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-purple-500/50 float-anim max-w-2xl z-10" style="animation-delay: 1.5s;">
+                    <div class="w-32 h-32 flex-shrink-0 relative">
+                        <img src="images/himage.jpg" alt="Haardik Pahlajani" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-purple-400 transition-colors avatar-pulse shadow-lg shadow-purple-500/20" loading="lazy">
+                    </div>
+                    <div>
+                        <h3 class="heading-font text-2xl font-bold text-white mb-2">Haardik Pahlajani</h3>
+                        <span class="role-badge badge-purple mb-4">Lead Game Engineer</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            The systems architect with <strong>4+ years</strong> of experience. Expert in Blueprint logic, C++ integration, complex physics interactions, and core gameplay mechanics.
+                        </p>
+                        <div class="flex justify-center gap-2 text-[10px] font-mono text-gray-500 flex-wrap">
+                            <span>BLUEPRINTS</span> • <span>SYSTEM_ARCHITECTURE</span> • <span>PHYSICS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="w-full mt-12 z-10">
+                    <div class="text-center mb-8"><span class="text-purple font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-purple-900 rounded-full">Deployments</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
+                        <!-- NPC Behaviour -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <!-- Direct Vimeo Embed -->
+                            <div class="video-container bg-black">
+                                <iframe src="https://player.vimeo.com/video/1146554723?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1" 
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                </iframe>
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-purple-500/50 z-20 pointer-events-none">
+                                    <span class="text-purple font-bold font-mono uppercase tracking-wider text-sm">[ SYSTEM ONLINE ]</span>
+                                </div>
+                            </div>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-purple transition-colors">AI NPC Behaviour</h3>
+                                <p class="text-gray-400 text-xs mb-3">Advanced AI state variables and behavior trees in Unreal Engine.</p>
+                            </div>
+                        </article>
+
+                        <!-- Simon Says Logic -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <!-- Direct Vimeo Embed -->
+                            <div class="video-container bg-[#0f0f15]">
+                                <iframe src="https://player.vimeo.com/video/1146554772?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1" 
+                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                                    class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                </iframe>
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-purple-500/50 z-20 pointer-events-none">
+                                    <span class="text-purple font-bold font-mono uppercase tracking-wider text-sm">[ LOGIC ACTIVE ]</span>
+                                </div>
+                            </div>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-purple transition-colors">Simon Says Logic</h3>
+                                <p class="text-gray-400 text-xs mb-3">Dynamically generated sequence memory puzzle with increasing difficulty.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MEMBER 3: YASH KUMAVAT ================= -->
+            <div class="flex flex-col items-center mb-32 relative">
+                <!-- Visual Connection Line -->
+                <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-yellow-500/50 to-transparent"></div>
+
+                <!-- Profile Card -->
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-yellow-500/50 float-anim max-w-2xl z-10" style="animation-delay: 3s;">
+                    <div class="w-32 h-32 flex-shrink-0 relative">
+                        <img src="images/yashimage.jpg" alt="Yash Kumavat" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-yellow-400 transition-colors avatar-pulse shadow-lg shadow-yellow-500/20" loading="lazy">
+                    </div>
+                    <div>
+                        <h3 class="heading-font text-2xl font-bold text-white mb-2">Yash Kumavat</h3>
+                        <span class="role-badge badge-yellow mb-4">Cinematics & VFX</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            <strong>4+ years</strong> in Blender and recent mastery of Unreal Cinematics. Yash brings a unique eye for visual storytelling, editing, and real-time VFX.
+                        </p>
+                        <div class="flex justify-center gap-2 text-[10px] font-mono text-gray-500 flex-wrap">
+                            <span>BLENDER</span> • <span>VFX</span> • <span>EDITING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="w-full mt-12 z-10">
+                    <div class="text-center mb-8"><span class="text-yellow font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-yellow-900 rounded-full">Deployments</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
+                        <!-- Star Wars Environment -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <a href="https://drive.google.com/drive/folders/1nRUQWsAIY4BS-RXNuUb2CVWDjCeMiyhq?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
+                                <img src="images/yd1.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Star Wars Environment">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-yellow-500/50">
+                                    <span class="text-yellow font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </div>
+                            </a>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-yellow transition-colors">Star Wars Environment</h3>
+                                <p class="text-gray-400 text-xs mb-3">Spacecraft environment design and atmospheric lighting.</p>
+                            </div>
+                        </article>
+
+                        <!-- Indian Modelling -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <a href="https://drive.google.com/drive/folders/1nRUQWsAIY4BS-RXNuUb2CVWDjCeMiyhq?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
+                                <img src="images/yd2.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Indian Architecture">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-yellow-500/50">
+                                    <span class="text-yellow font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </div>
+                            </a>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-yellow transition-colors">Indian Architecture</h3>
+                                <p class="text-gray-400 text-xs mb-3">Traditional Indian structural modelling.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MEMBER 4: SHOHEL HOSSAIN ================= -->
+            <div class="flex flex-col items-center relative">
+                <!-- Visual Connection Line -->
+                <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-teal-500/50 to-transparent"></div>
+
+                <!-- Profile Card Only -->
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-teal-500/50 float-anim max-w-2xl z-10" style="animation-delay: 4.5s;">
+                    <div class="w-32 h-32 flex-shrink-0 relative">
+                        <img src="images/simage.jpg" alt="Shohel Hossain" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-teal-400 transition-colors avatar-pulse shadow-lg shadow-teal-500/20" loading="lazy">
+                    </div>
+                    <div>
+                        <h3 class="heading-font text-2xl font-bold text-white mb-2">Shohel Hossain</h3>
+                        <span class="role-badge badge-teal mb-4">Lead 3D Modeler</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            A strategic thinker with <strong>5+ years</strong> in modeling (Blender/Unity). Ensures top-tier asset quality, optimization, and pipeline efficiency.
+                        </p>
+                        <div class="flex justify-center gap-2 text-[10px] font-mono text-gray-500 flex-wrap">
+                            <span>MODELING</span> • <span>OPTIMIZATION</span> • <span>STRATEGY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shohel's Projects Grid -->
+                <div class="w-full mt-12 z-10">
+                    <div class="text-center mb-8"><span class="text-teal font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-teal-900 rounded-full">Deployments</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
+                        <!-- Architectural Modelling -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <a href="https://drive.google.com/drive/folders/1yk54mdbSm9_ZJerWdUTMZWxT6YPZDmnV?usp=sharing" target="_blank" class="block video-container cursor-pointer">
+                                <img src="images/sh1.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Architectural Modelling">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-teal-500/50">
+                                    <span class="text-teal font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </div>
+                            </a>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-teal transition-colors">Architectural Modelling</h3>
+                                <p class="text-gray-400 text-xs mb-3">Professional building and structural modeling.</p>
+                                <div class="flex gap-2 justify-center text-[10px] font-mono text-teal/70">
+                                    <span>#ARCHVIZ</span> <span>#BLENDER</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Complex Circuit Design -->
+                        <article class="tech-card group">
+                            <div class="scan-overlay"></div>
+                            <a href="https://drive.google.com/drive/folders/1XLEnlofxHuBIDG8ds-asAdTv9aESTjLf?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
+                                <img src="images/sh2.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Complex Circuit Design">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-teal-500/50">
+                                    <span class="text-teal font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
+                                </div>
+                            </a>
+                            <div class="p-5 text-center">
+                                <h3 class="text-lg font-bold text-white mb-1 group-hover:text-teal transition-colors">Complex Circuit Design</h3>
+                                <p class="text-gray-400 text-xs mb-3">Intricate circuit board designing and component layout.</p>
+                                <div class="flex gap-2 justify-center text-[10px] font-mono text-teal/70">
+                                    <span>#HARD_SURFACE</span> <span>#DESIGN</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="py-12 bg-black border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div><div class="text-3xl font-bold text-red mb-1 heading-font">20+</div><div class="text-gray-500 uppercase text-[10px] tracking-widest font-sans">Combined Years Exp</div></div>
+                <div><div class="text-3xl font-bold text-purple mb-1 heading-font">15+</div><div class="text-gray-500 uppercase text-[10px] tracking-widest font-sans">Projects Shipped</div></div>
+                <div><div class="text-3xl font-bold text-yellow mb-1 heading-font">VIT</div><div class="text-gray-500 uppercase text-[10px] tracking-widest font-sans">Bhopal Students</div></div>
+                <div><div class="text-3xl font-bold text-green mb-1 heading-font">UE5</div><div class="text-gray-500 uppercase text-[10px] tracking-widest font-sans">Power Users</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-[#050505] relative overflow-hidden">
+        <div class="max-w-3xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="heading-font text-3xl font-bold text-white mb-6 uppercase tracking-wide">Ready to Collaborate?</h2>
+            <a href="mailto:contact@example.com" class="inline-flex items-center justify-center px-10 py-3 btn-primary text-sm font-bold text-white"><i class="fas fa-envelope mr-3"></i> Get In Touch</a>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"><img src="images/4.webp" class="w-full h-full object-cover grayscale opacity-20" loading="lazy"></div>
+    </section>
+
+    <footer class="bg-black py-8 border-t border-gray-900"><div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-xs font-sans"><p>&copy; 2025 NEXUS GAMES INDIA.</p></div></footer>
+
+    <!-- OPTIMIZED SCRIPTS -->
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Ensure videos play
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            video.play().catch(function(error) {
+                console.log("Video autoplay prevented.");
+            });
+        });
+
+        // Hero Video Background Slider
+        document.addEventListener('DOMContentLoaded', () => {
+            const video1 = document.getElementById('hero-video-1');
+            const video2 = document.getElementById('hero-video-2');
+            const video3 = document.getElementById('hero-video-3');
+            
+            const transitionVideos = (show, hide1, hide2) => {
+                show.classList.remove('opacity-0');
+                show.classList.add('opacity-60'); 
+                hide1.classList.remove('opacity-60');
+                hide1.classList.add('opacity-0');
+                hide2.classList.remove('opacity-60');
+                hide2.classList.add('opacity-0');
+            };
+
+            if (video1 && video2 && video3) {
+                setInterval(() => {
+                    if (video1.classList.contains('opacity-60')) {
+                        transitionVideos(video2, video1, video3);
+                    } else if (video2.classList.contains('opacity-60')) {
+                        transitionVideos(video3, video1, video2);
+                    } else {
+                        transitionVideos(video1, video2, video3);
+                    }
+                }, 8000); 
+            }
+        });
+    </script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+</body>
+</html>
