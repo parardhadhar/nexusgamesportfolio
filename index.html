@@ -443,10 +443,10 @@
 
     <!-- Sidebar Navigation (Desktop) -->
     <nav class="sidebar">
-        <a href="#home" class="sidebar-link active" data-title="HOME"><i class="fas fa-home"></i></a>
-        <a href="#collaborative" class="sidebar-link" data-title="PROJECTS"><i class="fas fa-gamepad"></i></a>
-        <a href="#roster" class="sidebar-link" data-title="TEAM"><i class="fas fa-users"></i></a>
-        <a href="#contact" class="sidebar-link" data-title="CONTACT"><i class="fas fa-envelope"></i></a>
+        <a href="#home" class="sidebar-link active" data-title="HOME" id="nav-home"><i class="fas fa-home"></i></a>
+        <a href="#collaborative" class="sidebar-link" data-title="PROJECTS" id="nav-collaborative"><i class="fas fa-gamepad"></i></a>
+        <a href="#roster" class="sidebar-link" data-title="TEAM" id="nav-roster"><i class="fas fa-users"></i></a>
+        <a href="#contact" class="sidebar-link" data-title="CONTACT" id="nav-contact"><i class="fas fa-envelope"></i></a>
     </nav>
 
     <!-- Mobile Top Navigation -->
@@ -584,15 +584,15 @@
                     </div>
                     <div class="p-8">
                         <div class="flex justify-between items-start mb-2">
-                            <h3 class="heading-font text-2xl font-bold text-white group-hover:text-purple transition-colors">Fractured Hours</h3>
-                            <span class="text-[10px] font-bold bg-purple-900/50 text-purple border border-purple-500/30 px-2 py-1 rounded">COMING AUG 2026</span>
+                            <h3 class="heading-font text-2xl font-bold text-white group-hover:text-purple transition-colors">Fractured Hours: Fracturing Hours</h3>
+                            <span class="text-[10px] font-bold bg-purple-900/50 text-purple border border-purple-500/30 px-2 py-1 rounded">COMING 2026</span>
                         </div>
                         <p class="text-gray-400 text-sm leading-relaxed mb-4">
                             A time-bending narrative experience where every second counts. Manipulate time to solve environmental puzzles and uncover the mystery behind the fractured timeline. 
-                            <span class="text-purple-400 block mt-2 font-bold">Upcoming game on Steam in August 2026.</span>
+                            <span class="text-purple-400 block mt-2 font-bold">Upcoming game on Steam in 2026.</span>
                         </p>
                         <div class="flex gap-2 text-[10px] font-mono text-purple/70 uppercase">
-                            <span>#HORROR</span> <span>#TIME_MECHANICS</span> <span>#NARRATIVE</span>
+                            <span>#SCIFI</span> <span>#TIME_MECHANICS</span> <span>#NARRATIVE</span>
                         </div>
                     </div>
                 </article>
@@ -960,6 +960,53 @@
             oscillator.stop(audioCtx.currentTime + 0.15);
         }
 
+        function playLoadingSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const now = audioCtx.currentTime;
+            
+            // Grand "Clash"-style Chime (Bell-like)
+            const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C Major arpeggio high
+            
+            frequencies.forEach((freq, i) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'triangle'; // Bell-like
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    
+                    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.05); // Quick attack
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5); // Long decay
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start(audioCtx.currentTime);
+                    osc.stop(audioCtx.currentTime + 1.5);
+                }, i * 100); // Staggered notes
+            });
+            
+            // Final "Thud" impact
+             setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.3);
+                
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.3);
+             }, 400);
+        }
+
+
         // Attach sounds to elements
         document.querySelectorAll('a, button, .interactive-element').forEach(el => {
             el.addEventListener('mouseenter', playHoverSound);
@@ -982,6 +1029,7 @@
                 
                 if (progress === 100) {
                     clearInterval(interval);
+                    playLoadingSound(); // Trigger sound at 100%
                     setTimeout(() => {
                         loader.style.opacity = '0';
                         setTimeout(() => {
@@ -1021,6 +1069,28 @@
         // Hide standard cursor
         document.body.style.cursor = 'none';
         document.querySelectorAll('a, button').forEach(el => el.style.cursor = 'none');
+        
+        // Scroll Spy for Sidebar
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".sidebar-link");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach((link) => {
+                        link.classList.remove("text-red", "active");
+                        // Get the ID from the href (e.g., #home -> home)
+                        const id = link.getAttribute("href").substring(1);
+                        if (id === entry.target.id) {
+                            link.classList.add("text-red", "active");
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% of section is visible
+
+        sections.forEach((section) => observer.observe(section));
+
 
     </script>
 
