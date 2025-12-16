@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth cursor-none">
+<html lang="en" class="scroll-smooth cursor-auto lg:cursor-none">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +79,6 @@
                 linear-gradient(rgba(255, 70, 85, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 70, 85, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
-            cursor: none; /* Hide default cursor */
             overflow: hidden; /* Hide scroll until loaded */
         }
         
@@ -110,6 +109,7 @@
             justify-content: center;
             align-items: center;
             transition: opacity 0.5s ease-out;
+            cursor: auto; /* Default cursor for loading screen */
         }
         .loading-content {
             display: flex;
@@ -159,43 +159,84 @@
             font-family: 'Rajdhani', sans-serif;
             font-weight: 600;
         }
+        #enter-btn {
+            display: none;
+            margin-top: 2rem;
+            padding: 10px 30px;
+            background: var(--neon-red);
+            color: black;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            border: none;
+            /* Ensure pointer cursor on button, handled by media query below for custom cursor */
+            box-shadow: 0 0 20px var(--neon-red);
+            animation: pulse-btn 1s infinite alternate;
+            z-index: 100000; /* Above custom cursor */
+            position: relative;
+        }
+        @keyframes pulse-btn {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--neon-red); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px var(--neon-red); }
+        }
         @keyframes pulse-logo {
             0%, 100% { opacity: 1; transform: skewX(-12deg) scale(1); }
             50% { opacity: 0.8; transform: skewX(-12deg) scale(0.95); }
         }
 
 
-        /* --- CUSTOM CURSOR --- */
-        #cursor-dot,
-        #cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
+        /* --- CUSTOM CURSOR (Desktop Only) --- */
+        @media (min-width: 1024px) {
+            #cursor-dot,
+            #cursor-outline {
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+                z-index: 9999;
+                pointer-events: none;
+                display: block;
+            }
 
-        #cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--neon-red);
-        }
+            #cursor-dot {
+                width: 8px;
+                height: 8px;
+                background-color: var(--neon-red);
+            }
 
-        #cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--neon-red);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            #cursor-outline {
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--neon-red);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            
+            /* Hover State for Cursor */
+            body.hovering #cursor-outline {
+                width: 60px;
+                height: 60px;
+                background-color: rgba(255, 70, 85, 0.1);
+                border-color: #fff;
+            }
+            
+            /* Hide Default Cursor on Desktop */
+            body, a, button, .tech-card {
+                cursor: none;
+            }
+            
+            /* Specific fix for Enter Button: Show custom cursor on top */
+            #enter-btn {
+                cursor: none;
+            }
         }
         
-        /* Hover State for Cursor */
-        body.hovering #cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 70, 85, 0.1);
-            border-color: #fff;
+        @media (max-width: 1023px) {
+            #cursor-dot, #cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
         }
 
         /* --- BUTTONS --- */
@@ -212,7 +253,6 @@
             transition: all 0.2s ease;
             box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
             z-index: 10;
-            cursor: none; /* Hide default cursor */
         }
         .btn-primary:hover {
             background: #fff;
@@ -233,7 +273,6 @@
             clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
             transition: all 0.2s;
             z-index: 10;
-            cursor: none;
         }
         .btn-secondary:hover {
             border-color: var(--neon-purple);
@@ -278,7 +317,6 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            cursor: none;
         }
         .tech-card::after {
             content: '';
@@ -434,6 +472,7 @@
                 <span class="text-xs text-gray-500">ASSETS LOADING...</span>
                 <span id="loading-counter" class="text-xs text-red-500 font-bold">0%</span>
             </div>
+            <button id="enter-btn" onclick="enterSite()">INITIALIZE</button>
         </div>
     </div>
 
@@ -966,6 +1005,7 @@
             const now = audioCtx.currentTime;
             
             // Grand "Clash"-style Chime (Bell-like)
+            // Updated to be simpler, brighter "Supercell" style chord
             const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C Major arpeggio high
             
             frequencies.forEach((freq, i) => {
@@ -1014,14 +1054,17 @@
         });
 
         // Loading Screen Logic
+        let entered = false;
+        
         window.addEventListener('load', () => {
             const loader = document.getElementById('loading-screen');
             const bar = document.getElementById('loading-bar');
             const text = document.getElementById('loading-counter');
+            const btn = document.getElementById('enter-btn');
             
             let progress = 0;
             const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 5) + 1; // Random increment
+                progress += Math.floor(Math.random() * 5) + 1; 
                 if (progress > 100) progress = 100;
                 
                 bar.style.width = `${progress}%`;
@@ -1029,17 +1072,27 @@
                 
                 if (progress === 100) {
                     clearInterval(interval);
-                    playLoadingSound(); // Trigger sound at 100%
-                    setTimeout(() => {
-                        loader.style.opacity = '0';
-                        setTimeout(() => {
-                            loader.style.display = 'none';
-                            document.body.style.overflow = 'auto'; 
-                        }, 500);
-                    }, 500); // Short pause at 100%
+                    // Show Enter Button
+                    btn.style.display = 'block';
                 }
-            }, 30); // Speed of update
+            }, 30); 
         });
+
+        function enterSite() {
+            if (entered) return;
+            entered = true;
+            
+            // Initialize Audio Context on user gesture
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            playLoadingSound();
+            
+            const loader = document.getElementById('loading-screen');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
 
         // Custom Cursor Logic
         const cursorDot = document.getElementById("cursor-dot");
@@ -1087,7 +1140,7 @@
                     });
                 }
             });
-        }, { threshold: 0.2 }); // Trigger when 20% of section is visible
+        }, { threshold: 0.3 }); // Trigger when 30% of section is visible
 
         sections.forEach((section) => observer.observe(section));
 
