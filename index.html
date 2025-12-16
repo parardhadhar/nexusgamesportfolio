@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth cursor-none">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO: Meta Description & Keywords -->
-    <meta name="description" content="Nexus Games India - Elite Game Development Team from VIT Bhopal. Specialists in Unreal Engine 5, Blueprints, Cinematics, VFX, and immersive gameplay mechanics.">
-    <meta name="keywords" content="Nexus Games India, Game Development, Unreal Engine 5, VIT Bhopal, Game Design, Blueprints, Cinematics, VFX, Game Portfolio">
-    <meta name="author" content="Nexus Games India">
+    <meta name="description" content="Nexus Games India - Game Development Portfolio. Unreal Engine, C++, and Cinematics experts building the future of interactive entertainment.">
     <meta name="google-site-verification" content="I_HeAxJTC0JAIjzmsQ7vqPh0bz1VSGxKrD6vrmZibXI" />
     
     <!-- SEO: Canonical Tag (Replace with your actual hosted domain) -->
@@ -83,6 +79,8 @@
                 linear-gradient(rgba(255, 70, 85, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 70, 85, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
+            cursor: none; /* Hide default cursor */
+            overflow: hidden; /* Hide scroll until loaded */
         }
         
         h1, h2, h3, .heading-font {
@@ -101,6 +99,105 @@
         
         .hover-text-red:hover { color: var(--neon-red); transition: color 0.3s; }
 
+        /* --- LOADING SCREEN --- */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #050505;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out;
+        }
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        .loading-logo {
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--neon-red);
+            transform: skewX(-12deg);
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px var(--neon-red);
+            animation: pulse-logo 1.5s infinite ease-in-out;
+        }
+        .loading-text {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+        }
+        .loading-bar-container {
+            width: 100%;
+            height: 4px;
+            background: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        #loading-bar {
+            height: 100%;
+            background: var(--neon-red);
+            width: 0%;
+            box-shadow: 0 0 15px var(--neon-red);
+            transition: width 0.1s linear;
+        }
+        .loading-stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 0.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+        @keyframes pulse-logo {
+            0%, 100% { opacity: 1; transform: skewX(-12deg) scale(1); }
+            50% { opacity: 0.8; transform: skewX(-12deg) scale(0.95); }
+        }
+
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor-dot,
+        #cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-red);
+        }
+
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--neon-red);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        /* Hover State for Cursor */
+        body.hovering #cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 70, 85, 0.1);
+            border-color: #fff;
+        }
+
         /* --- BUTTONS --- */
         .btn-primary {
             position: relative;
@@ -115,6 +212,7 @@
             transition: all 0.2s ease;
             box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
             z-index: 10;
+            cursor: none; /* Hide default cursor */
         }
         .btn-primary:hover {
             background: #fff;
@@ -135,6 +233,7 @@
             clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
             transition: all 0.2s;
             z-index: 10;
+            cursor: none;
         }
         .btn-secondary:hover {
             border-color: var(--neon-purple);
@@ -179,6 +278,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            cursor: none;
         }
         .tech-card::after {
             content: '';
@@ -263,31 +363,104 @@
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
+
+        /* Sidebar Navigation (PC Only) */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 80px;
+            background: rgba(5, 5, 5, 0.95);
+            border-right: 1px solid #222;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 60;
+            gap: 40px;
+        }
+        @media (min-width: 1024px) {
+            .sidebar { display: flex; }
+            .top-nav { display: none; } /* Hide top nav on PC if sidebar is used */
+            body { padding-left: 80px; } /* Push content */
+        }
+        .sidebar-link {
+            color: #555;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            cursor: none;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            color: var(--neon-red);
+            transform: scale(1.2);
+            text-shadow: 0 0 10px var(--neon-red);
+        }
+        /* Tooltip for Sidebar */
+        .sidebar-link::after {
+            content: attr(data-title);
+            position: absolute;
+            left: 140%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--neon-red);
+            color: #000;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 40%);
+        }
+        .sidebar-link:hover::after { opacity: 1; }
+
     </style>
 </head>
 <body class="antialiased text-gray-300">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-[#050505]/95 backdrop-blur-sm border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <h1 class="loading-text">SYSTEM INITIALIZING</h1>
+            <div class="loading-bar-container">
+                <div id="loading-bar"></div>
+            </div>
+            <div class="loading-stats">
+                <span class="text-xs text-gray-500">ASSETS LOADING...</span>
+                <span id="loading-counter" class="text-xs text-red-500 font-bold">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor Elements -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- Sidebar Navigation (Desktop) -->
+    <nav class="sidebar">
+        <a href="#home" class="sidebar-link active" data-title="HOME"><i class="fas fa-home"></i></a>
+        <a href="#collaborative" class="sidebar-link" data-title="PROJECTS"><i class="fas fa-gamepad"></i></a>
+        <a href="#roster" class="sidebar-link" data-title="TEAM"><i class="fas fa-users"></i></a>
+        <a href="#contact" class="sidebar-link" data-title="CONTACT"><i class="fas fa-envelope"></i></a>
+    </nav>
+
+    <!-- Mobile Top Navigation -->
+    <nav class="fixed w-full z-50 bg-[#050505]/95 backdrop-blur-sm border-b border-gray-800 lg:hidden top-nav">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-2">
-                    <!-- Simple Logo Icon -->
                     <div class="w-2 h-8 bg-red-500 transform skew-x-12"></div>
                     <span class="heading-font text-xl font-bold tracking-widest text-white">
                         NGI
                     </span>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Home</a>
-                        <a href="#collaborative" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Our Work</a>
-                        <a href="#roster" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors uppercase tracking-wider">Team Roster</a>
-                        <a href="#contact" class="text-red block px-3 py-2 text-sm font-medium font-bold">Contact</a>
-                    </div>
-                </div>
                 <!-- Mobile menu button -->
-                <div class="-mr-2 flex md:hidden">
+                <div class="flex">
                     <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -295,7 +468,7 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div class="hidden md:hidden bg-gray-900 border-b border-gray-800" id="mobile-menu">
+        <div class="hidden bg-gray-900 border-b border-gray-800" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="text-gray-300 hover:text-white block px-3 py-2 text-sm font-medium">Home</a>
                 <a href="#collaborative" class="text-gray-300 hover:text-white block px-3 py-2 text-sm font-medium">Our Work</a>
@@ -331,7 +504,7 @@
 
         <div class="relative z-20 text-center px-4 max-w-5xl mx-auto" data-aos="fade-up">
             <h2 class="text-red font-bold tracking-[0.2em] uppercase mb-4 text-xs md:text-sm glow-text">
-                Unreal Engine • 3D Modelling • Cinematics & VFX
+                Unreal Engine • Blueprints • Cinematics & VFX
             </h2>
             <h1 class="glitch text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 uppercase leading-tight" data-text="NEXUS GAMES INDIA">
                 NEXUS GAMES <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9933] via-[#FFFFFF] to-[#138808]">INDIA</span>
@@ -341,10 +514,10 @@
                 Building immersive experiences for <strong class="text-white">Global Hackathons</strong> and beyond.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="#collaborative" class="px-8 py-3 btn-primary text-sm text-white">
+                <a href="#collaborative" class="px-8 py-3 btn-primary text-sm text-white interactive-element">
                     View Our Work
                 </a>
-                <a href="#contact" class="px-8 py-3 btn-secondary text-sm">
+                <a href="#contact" class="px-8 py-3 btn-secondary text-sm interactive-element">
                     Contact Us
                 </a>
             </div>
@@ -364,7 +537,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
 
                 <!-- Project 1: Medieval Escape -->
-                <article class="tech-card group">
+                <article class="tech-card group interactive-element">
                     <div class="scan-overlay"></div>
                     <!-- Direct Iframe Embed -->
                     <div style="padding:47.54% 0 0 0;position:relative;" class="bg-black border-b border-gray-800">
@@ -375,7 +548,7 @@
                             title="Medieval-escape small video only" class="pointer-events-none">
                         </iframe>
                         <!-- Overlay Link -->
-                        <a href="https://nexus-games-india.itch.io/medieval-escape" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-green-500/50 z-10">
+                        <a href="https://nexus-games-india.itch.io/medieval-escape" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-green-500/50 z-10 interactive-element">
                             <span class="text-green font-bold font-mono uppercase tracking-wider text-lg">
                                 <i class="fab fa-itch-io mr-2"></i> PLAY ON ITCH.IO
                             </span>
@@ -393,7 +566,7 @@
                 </article>
 
                 <!-- Project 2: Fractured Hours -->
-                <article class="tech-card group">
+                <article class="tech-card group interactive-element">
                     <div class="scan-overlay"></div>
                     <!-- Direct Iframe Embed -->
                     <div class="video-container bg-black border-b border-gray-800">
@@ -403,7 +576,7 @@
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="pointer-events-none">
                         </iframe>
                         <!-- Overlay Link -->
-                        <a href="https://store.steampowered.com/publisher/nexusgamesindia" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-purple-500/50 z-10">
+                        <a href="https://store.steampowered.com/publisher/nexusgamesindia" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-purple-500/50 z-10 interactive-element">
                             <span class="text-purple font-bold font-mono uppercase tracking-wider text-lg">
                                 <i class="fab fa-steam mr-2"></i> VIEW ON STEAM
                             </span>
@@ -443,9 +616,9 @@
                 <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-red-500/50 to-transparent"></div>
                 
                 <!-- Profile -->
-                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-red-500/50 float-anim max-w-2xl z-10" style="animation-delay: 0s;">
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-red-500/50 float-anim max-w-2xl z-10 interactive-element" style="animation-delay: 0s;">
                     <div class="w-32 h-32 flex-shrink-0 relative">
-                        <img src="images/pdimage.jpg" alt="Parardha Dhar" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-red-400 transition-colors avatar-pulse shadow-lg shadow-red-500/20" loading="lazy">
+                        <img src="images/pdimage.jpg" alt="Parardha Dhar" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-red-400 transition-colors avatar-pulse shadow-lg shadow-red-500/20">
                     </div>
                     <div>
                         <h3 class="heading-font text-2xl font-bold text-white mb-2">Parardha Dhar</h3>
@@ -464,7 +637,7 @@
                     <div class="text-center mb-8"><span class="text-red font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-red-900 rounded-full">Deployments</span></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center max-w-6xl mx-auto">
                         <!-- Vehicle Rigging (MP4) -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <div class="video-container bg-black">
                                 <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80" poster="images/vehiclerig ss.png">
@@ -481,7 +654,7 @@
                         </article>
 
                         <!-- Environment Art (Vimeo) -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <div class="video-container bg-black">
                                 <iframe src="https://player.vimeo.com/video/1146543594?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1&dnt=1" 
@@ -489,7 +662,7 @@
                                     class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" 
                                     title="1209">
                                 </iframe>
-                                <a href="https://drive.google.com/drive/folders/19bXIJdULnVpEYApYj6UlNbheyQjZVgCH?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-cyan-500/50 z-20">
+                                <a href="https://drive.google.com/drive/folders/19bXIJdULnVpEYApYj6UlNbheyQjZVgCH?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-cyan-500/50 z-20 interactive-element">
                                     <span class="text-cyan font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
                                 </a>
                             </div>
@@ -500,7 +673,7 @@
                         </article>
 
                         <!-- Mocap & Cloth (Vimeo) -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <div class="video-container bg-black">
                                 <iframe src="https://player.vimeo.com/video/1146542322?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1#t=4s" 
@@ -508,7 +681,7 @@
                                     class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" 
                                     title="motion rigging final">
                                 </iframe>
-                                <a href="https://drive.google.com/file/d/1RcwKGqmqOQocNhlg1gccGksR3djSLTpH/view?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-red-500/50 z-20">
+                                <a href="https://drive.google.com/file/d/1RcwKGqmqOQocNhlg1gccGksR3djSLTpH/view?usp=sharing" target="_blank" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center border-2 border-red-500/50 z-20 interactive-element">
                                     <span class="text-red font-bold font-mono uppercase tracking-wider text-sm">[ VIEW PROJECT ]</span>
                                 </a>
                             </div>
@@ -527,7 +700,7 @@
                 <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-purple-500/50 to-transparent"></div>
 
                 <!-- Profile Card -->
-                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-purple-500/50 float-anim max-w-2xl z-10" style="animation-delay: 1.5s;">
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-purple-500/50 float-anim max-w-2xl z-10 interactive-element" style="animation-delay: 1.5s;">
                     <div class="w-32 h-32 flex-shrink-0 relative">
                         <img src="images/himage.jpg" alt="Haardik Pahlajani" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-purple-400 transition-colors avatar-pulse shadow-lg shadow-purple-500/20" loading="lazy">
                     </div>
@@ -548,7 +721,7 @@
                     <div class="text-center mb-8"><span class="text-purple font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-purple-900 rounded-full">Deployments</span></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
                         <!-- NPC Behaviour -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <!-- Direct Vimeo Embed -->
                             <div class="video-container bg-black">
@@ -567,7 +740,7 @@
                         </article>
 
                         <!-- Simon Says Logic -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <!-- Direct Vimeo Embed -->
                             <div class="video-container bg-[#0f0f15]">
@@ -594,7 +767,7 @@
                 <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-yellow-500/50 to-transparent"></div>
 
                 <!-- Profile Card -->
-                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-yellow-500/50 float-anim max-w-2xl z-10" style="animation-delay: 3s;">
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-yellow-500/50 float-anim max-w-2xl z-10 interactive-element" style="animation-delay: 3s;">
                     <div class="w-32 h-32 flex-shrink-0 relative">
                         <img src="images/yashimage.jpg" alt="Yash Kumavat" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-yellow-400 transition-colors avatar-pulse shadow-lg shadow-yellow-500/20" loading="lazy">
                     </div>
@@ -615,7 +788,7 @@
                     <div class="text-center mb-8"><span class="text-yellow font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-yellow-900 rounded-full">Deployments</span></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
                         <!-- Star Wars Environment -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <a href="https://drive.google.com/drive/folders/1nRUQWsAIY4BS-RXNuUb2CVWDjCeMiyhq?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
                                 <img src="images/yd1.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Star Wars Environment">
@@ -630,7 +803,7 @@
                         </article>
 
                         <!-- Indian Modelling -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <a href="https://drive.google.com/drive/folders/1nRUQWsAIY4BS-RXNuUb2CVWDjCeMiyhq?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
                                 <img src="images/yd2.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Indian Architecture">
@@ -653,7 +826,7 @@
                 <div class="absolute top-48 bottom-0 w-px bg-gradient-to-b from-green-500/50 to-transparent"></div>
 
                 <!-- Profile Card Only -->
-                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-green-500/50 float-anim max-w-2xl z-10" style="animation-delay: 4.5s;">
+                <div class="tech-card p-8 flex flex-col items-center text-center gap-6 group hover:border-green-500/50 float-anim max-w-2xl z-10 interactive-element" style="animation-delay: 4.5s;">
                     <div class="w-32 h-32 flex-shrink-0 relative">
                         <img src="images/simage.jpg" alt="Shohel Hossain" class="w-full h-full object-cover rounded-full border-2 border-gray-700 group-hover:border-green-400 transition-colors avatar-pulse shadow-lg shadow-green-500/20" loading="lazy">
                     </div>
@@ -674,7 +847,7 @@
                     <div class="text-center mb-8"><span class="text-green font-mono text-xs uppercase tracking-widest bg-[#050505] px-4 border border-green-900 rounded-full">Deployments</span></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center max-w-4xl mx-auto">
                         <!-- Architectural Modelling -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <a href="https://drive.google.com/drive/folders/1yk54mdbSm9_ZJerWdUTMZWxT6YPZDmnV?usp=sharing" target="_blank" class="block video-container cursor-pointer">
                                 <img src="images/sh1.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Architectural Modelling">
@@ -692,7 +865,7 @@
                         </article>
 
                         <!-- Complex Circuit Design -->
-                        <article class="tech-card group">
+                        <article class="tech-card group interactive-element">
                             <div class="scan-overlay"></div>
                             <a href="https://drive.google.com/drive/folders/1XLEnlofxHuBIDG8ds-asAdTv9aESTjLf?usp=drive_link" target="_blank" class="block video-container cursor-pointer">
                                 <img src="images/sh2.jpg" class="opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" alt="Complex Circuit Design">
@@ -731,14 +904,127 @@
     <section id="contact" class="py-24 bg-[#050505] relative overflow-hidden">
         <div class="max-w-3xl mx-auto px-4 relative z-10 text-center">
             <h2 class="heading-font text-3xl font-bold text-white mb-6 uppercase tracking-wide">Ready to Collaborate?</h2>
-            <a href="mailto:nexusgames.in@gmail.com" class="inline-flex items-center justify-center px-10 py-3 btn-primary text-sm font-bold text-white"><i class="fas fa-envelope mr-3"></i> Get In Touch</a>
+            <a href="mailto:nexusgames.in@gmail.com" class="inline-flex items-center justify-center px-10 py-3 btn-primary text-sm font-bold text-white interactive-element"><i class="fas fa-envelope mr-3"></i> Get In Touch</a>
         </div>
         <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"><img src="images/4.webp" class="w-full h-full object-cover grayscale opacity-20" loading="lazy"></div>
     </section>
 
     <footer class="bg-black py-8 border-t border-gray-900"><div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-xs font-sans"><p>&copy; 2025 NEXUS GAMES INDIA.</p></div></footer>
 
-    <!-- OPTIMIZED SCRIPTS -->
+    <!-- AUDIO ELEMENTS (Generated Beeps) -->
+    <script>
+        // Audio Context for synthesizing sounds without files
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        function playHoverSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            // Futuristic "chirp"
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+            
+            // Subtle gain envelope
+            gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function playClickSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            // Heavy tech "thud"
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.15);
+            
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.15);
+        }
+
+        // Attach sounds to elements
+        document.querySelectorAll('a, button, .interactive-element').forEach(el => {
+            el.addEventListener('mouseenter', playHoverSound);
+            el.addEventListener('mousedown', playClickSound);
+        });
+
+        // Loading Screen Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loading-screen');
+            const bar = document.getElementById('loading-bar');
+            const text = document.getElementById('loading-counter');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5) + 1; // Random increment
+                if (progress > 100) progress = 100;
+                
+                bar.style.width = `${progress}%`;
+                text.innerText = `${progress}%`;
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            document.body.style.overflow = 'auto'; 
+                        }, 500);
+                    }, 500); // Short pause at 100%
+                }
+            }, 30); // Speed of update
+        });
+
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorOutline = document.getElementById("cursor-outline");
+
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with delay (simulated by CSS transition)
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+            
+            // Check for hover state
+            const target = e.target;
+            if (target.matches('a, button, .interactive-element, .sidebar-link') || target.closest('a, button, .interactive-element')) {
+                document.body.classList.add('hovering');
+            } else {
+                document.body.classList.remove('hovering');
+            }
+        });
+        
+        // Hide standard cursor
+        document.body.style.cursor = 'none';
+        document.querySelectorAll('a, button').forEach(el => el.style.cursor = 'none');
+
+    </script>
+
+    <!-- Interactive Scripts -->
     <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
